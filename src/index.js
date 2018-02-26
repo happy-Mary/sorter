@@ -1,28 +1,28 @@
 class Sorter {
   constructor() {
-    this.string = [];
+    this.data = [];
   }
 
   add(element) {
-    this.string.push(element);
+    this.data.push(element);
   }
 
   at(index) {
-    return this.string[index];
+    return this.data[index];
   }
 
   get length() {
-    return this.string.length;
+    return this.data.length;
   }
 
   toArray() {
-    return this.string;
+    return this.data;
   }
 
   sort(indices) {
     indices.sort((a, b) => a - b);
     let newArr = [];
-    let arr = this.string;
+    let arr = this.data;
     indices.forEach(item => {
       newArr.push(arr[item]);
     })
@@ -30,13 +30,17 @@ class Sorter {
     indices.forEach((item, index) => {
       arr[item] = newArr[index];
     })
-    this.string = arr;
+    this.data = arr;
   }
 
   setComparator(compareFunction) {
-    const x = (a, b) => a - b;
-    let compareCallback = compareFunction || x;
-    return this.string.sort(compareCallback);
+    let compareCallback;
+    if (!compareFunction) {
+      compareCallback = (a, b) => a - b;
+    } else {
+      compareCallback = compareFunction;
+    }
+    return this.data.sort(compareCallback);
   }
 }
 
